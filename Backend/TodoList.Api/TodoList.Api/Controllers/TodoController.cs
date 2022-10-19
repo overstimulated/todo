@@ -73,7 +73,9 @@ namespace TodoList.Api.Controllers
 
             } catch(ExistingDescriptionException e)
             {
-                return BadRequest(e.Message);
+                return new BadRequestObjectResult(e.Message) {
+                    StatusCode = (int) HttpStatusCode.Conflict
+                };
             }
         }
 

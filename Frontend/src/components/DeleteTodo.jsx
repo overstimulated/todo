@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -10,21 +10,30 @@ import {
     Text,
     useDisclosure,
     IconButton,
-  } from "@chakra-ui/react";
+  } from '@chakra-ui/react';
 import {AiFillDelete} from 'react-icons/ai';
 
 const DeleteTodo = ({todo, deleteTodo}) => {
     
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const focusRef = useRef();
+
   const handleDelete = () => {
-    deleteTodo(todo.id, onClose);
+    
+    deleteTodo(todo.id);
+
+    onClose();
   }
 
     return(
         <>
-        <IconButton icon={<AiFillDelete />} isRound='true' onClick={onOpen}/>
-        <Modal isCentered isOpen={isOpen} onClose={onClose}>
+        <IconButton role="delete-todo" icon={<AiFillDelete />} isRound='true' onClick={onOpen}/>
+        <Modal 
+          isCentered 
+          isOpen={isOpen} 
+          onClose={onClose}
+          initialFocusRef={focusRef}>
           <ModalOverlay />
           <ModalContent w='90%'>
             <ModalHeader>Delete the todo task?</ModalHeader>

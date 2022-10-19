@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -12,8 +12,6 @@ import {
     FormControl,
     useDisclosure,
     IconButton,
-    Checkbox,
-    FormLabel,
   } from '@chakra-ui/react';
 import {AiTwotoneEdit} from 'react-icons/ai';
 
@@ -23,7 +21,7 @@ const UpdateTodo = ({todo, updateTodo}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [description, setDescription] = useState('');
 
-    const focusRef = React.useRef();
+    const focusRef = useRef();
 
     const handleUpdate = () => {
 
@@ -40,7 +38,7 @@ const UpdateTodo = ({todo, updateTodo}) => {
 
     return(
         <>
-        <IconButton icon={<AiTwotoneEdit />} isRound='true' onClick={onOpen} disabled={todo.isCompleted} />
+        <IconButton role='update-todo' icon={<AiTwotoneEdit />} isRound='true' onClick={onOpen} disabled={todo.isCompleted} />
         <Modal
           isCentered
           initialFocusRef={focusRef}

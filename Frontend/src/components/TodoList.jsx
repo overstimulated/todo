@@ -4,7 +4,7 @@ import {
     VStack,
     Text,
     StackDivider,
-  } from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 import DeleteTodo from './DeleteTodo';
 import UpdateTodo from './UpdateTodo';
@@ -30,23 +30,23 @@ const TodoList = ({
     return(
         <>
             <VStack
-            divider={<StackDivider />}
-            borderColor='gray.100'
-            borderWidth='2px'
-            p='5'
-            borderRadius='lg'
-            w='100%'
-            maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "30vw" }}
-            alignItems='stretch'
-        >
+                role='todo-list'
+                divider={<StackDivider />}
+                borderColor='gray.100'
+                borderWidth='2px'
+                p='5'
+                borderRadius='lg'
+                w='100%'
+                maxW={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "30vw" }}
+                alignItems='stretch'
+            >
             {todoList.map((todo, i) => (
             <HStack key={i}>
                 <Text
                 opacity={todo.isCompleted === true ? "0.2" : "1"}
                 w='100%'
-                p='8px'
                 borderRadius='lg'
-                as={todo.isCompleted === true ? "del" : ""}
+                as={todo.isCompleted === true ? "s" : ""}
                 cursor="pointer"
                 onClick={() => handleToggleComplete(todo)}
                 >
