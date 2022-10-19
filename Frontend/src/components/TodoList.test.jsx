@@ -26,9 +26,9 @@ describe("TodoList component", () => {
 
         render(<TodoList todoList={[{description: 'testonly', isCompleted: true}]}/>);
 
-        const todo = screen.getByText(/testonly/);
-
-        expect(todo.tagName.toLowerCase()).toBe('s');
+        expect(screen.getByText(/testonly/).tagName.toLowerCase()).toBe('s');
+        
+        expect(screen.getByRole('update-todo')).toBeDisabled();
     });
 
     it("displays Your list is empty when todolist is empty", () => {
