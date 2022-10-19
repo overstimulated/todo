@@ -28,3 +28,24 @@ You are welcome to use comments in the code to outline any assumptions you might
 Once completed you can either push the completed solution to your own repo and send us the link.
 <br/><br/>
 We look forward to seeing your submission and have fun!
+
+
+## What I could have done further
+### Backend
+I would have added basic authentication functionality to the server to provide some security.
+
+Also, to effectively work with large amount of todos, pagination would have been nice! - combine that with a standardized response object for all the APIs
+
+For better monitoring,
+I would have exposed a correlationId header key and capture that via middleware so I can have traceability of the request and then it can be included in the logger.
+
+I could have used Automapper, but it's a simple model.
+
+I could have added functional tests, and more tests
+
+### Frontend
+I would have liked the packages critical vulnerabilities fixed! there were 9 at the time. But somehow, VisualStudio was needed to be installed in my machine so it can be fixed...?
+
+I could have added more tests to cover more scenarios of how a user would use or interact with the webapp.
+
+I could have standardized the todo response from the server and also added strongly type todo model used throughout the app

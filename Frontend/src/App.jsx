@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { createTodo, deleteTodo, getAllTodos, updateTodo } from './services/todos.service'
 import {
   Heading,
   useToast,
   VStack,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import AddTodo from './components/AddTodo';
 import TodoList from './components/TodoList';
 
@@ -20,7 +20,7 @@ const App = () => {
    const response = await createTodo(todo);
 
    if(response?.error) {
-      setToastError(response.error.message);
+    memoizedToastError(response.error.message);
       return;
     }  
 
@@ -40,7 +40,7 @@ const App = () => {
     const response = await updateTodo(updated);
    
     if(response?.error) {
-       setToastError(response.error.message);
+      memoizedToastError(response.error.message);
        return;
      }  
  
@@ -52,9 +52,9 @@ const App = () => {
     const response = await deleteTodo(id);
 
     if(response?.error) {
-      setToastError(response.error.message);
+      memoizedToastError(response.error.message);
       return;
-    }  
+    }
 
     const updatedTodos = todos.filter((todo) => {
       return todo.id !== id
@@ -63,19 +63,20 @@ const App = () => {
     setTodos(updatedTodos);
   }
 
-  const handleToggletComplete = async (todo) => {
+  const handleToggleComplete = async (todo) => {
     await handleUpdateTodo(todo);
   }
 
-  const setToastError = (message) => {
-    toast({
+  const memoizedToastError = useCallback(
+    (message) => {
+      toast({
       title: `${message}`,
       position: "top",
       status: "warning",
-      isClosable: true,
-      duration: 1000
+      isClosable: true
     });
-  }
+    }, [toast]
+  )
 
   useEffect(() => {
     const todoList = async () => {
@@ -85,12 +86,13 @@ const App = () => {
       setTodos(response.data ?? []);
 
       if(response.error) {
-        setToastError(response.error.message);
-      }    
+        memoizedToastError(response.error.message);
+      }  
     };
 
     todoList();
-  }, []);
+
+  }, [memoizedToastError]);
 
   return (
     <VStack p={4} minH='100vh' pb={28}>
@@ -102,7 +104,7 @@ const App = () => {
           todoList={todos}
           deleteTodo={handleDeleteTodo}
           updateTodo={handleUpdateTodo}
-          toggleComplete={handleToggletComplete}
+          toggleComplete={handleToggleComplete}
         />
       </VStack>
   )

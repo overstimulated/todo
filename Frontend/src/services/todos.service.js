@@ -12,10 +12,10 @@ export const getAllTodos = async () => {
         return ({
             data: data
         });
-    } catch {
+    } catch (error) {
         return ({
             error: {
-                message: "Service is unavailable"
+                message: error.message ?? "Service is unavailable"
             }
         })
     };
@@ -30,6 +30,11 @@ export const createTodo = async (todo) => {
                 'Content-Type': 'application/json',
               }
         });
+        
+        if(!response.ok && response.status == 409)
+        {
+            throw new Error('Ooops! looks like it exists already!')
+        }
 
         const data = await response.json();
 
@@ -37,10 +42,10 @@ export const createTodo = async (todo) => {
             data: data
         });
 
-    } catch {
+    } catch (error) {
         return ({
             error: {
-                message: "Service is unavailable"
+                message: error.message ?? "Service is unavailable"
             }
         })
     };
@@ -60,7 +65,7 @@ export const updateTodo = async (todo) => {
     } catch (error) {
         return ({
             error: {
-                message: error.message
+                message: error.message ?? "Service is unavailable"
             }
         })
     }
@@ -76,7 +81,7 @@ export const deleteTodo = async (id) => {
     } catch (error) {
         return ({
             error: {
-                message: "Service is unavailable"
+                message: error.message ?? "Service is unavailable"
             }
         })
     }

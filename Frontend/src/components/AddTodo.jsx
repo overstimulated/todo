@@ -1,5 +1,11 @@
-import { useState } from "react";
-import { Button, HStack, Input, useToast } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { 
+  Button, 
+  HStack, 
+  Input, 
+  useToast 
+} from '@chakra-ui/react';
 
 
 const AddTodo = ({addTodo}) => {
@@ -9,10 +15,7 @@ const AddTodo = ({addTodo}) => {
 
     const toast = useToast();
 
-
-    const handleSubmit = (evt) => {
-
-        evt.preventDefault();
+    const handleSubmit = () => {
 
         const text = description.trim();
 
@@ -21,7 +24,7 @@ const AddTodo = ({addTodo}) => {
                 title: "Enter a description",
                 position: "top",
                 status: "warning",
-                isClosable: true,
+                isClosable: true     
               });
 
             setStatusInput(false);
@@ -29,7 +32,7 @@ const AddTodo = ({addTodo}) => {
         }
 
         const todo = {
-            id: crypto.randomUUID(),
+            id: uuidv4(),
             description: text,
             isCompleted: false
         }
@@ -44,28 +47,21 @@ const AddTodo = ({addTodo}) => {
     }
 
     return(
-        <form onSubmit={handleSubmit}>
-        <HStack mt='4' mb='4'>
-          <Input
-            h='46'
-            borderColor={!statusInput ? "red" : "transparent"}
-            variant='filled'
-            placeholder='Add your todo'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Button
-            colorScheme='twitter'
-            px='8'
-            pl='10'
-            pr='10'
-            h='46'
-            type='submit'
-          >
-            Add
-          </Button>
-        </HStack>
-      </form>
+      <HStack mt='5' mb='5'>
+        <Input
+          borderColor={!statusInput ? "red" : "transparent"}
+          variant='filled'
+          placeholder='Add your todo'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Button
+          colorScheme='teal'
+          onClick={() => handleSubmit()}
+        >
+          Add
+        </Button>
+      </HStack>
     )
 }
 

@@ -76,7 +76,7 @@ namespace WebApi.Controllers
             var result = (BadRequestObjectResult) await sut.PostTodoItem(new TodoRequest { Description = "test", IsCompleted = false});
 
             // ASSERT
-            result.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+            result.StatusCode.Should().Be((int)HttpStatusCode.Conflict);
             result.Value.Should().Be(exception.Message);
         }
 
