@@ -45,7 +45,7 @@ namespace TodoList.Api.Controllers
 
         // PUT: api/TodoItems/... 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem([FromRoute]Guid id, [FromBody]TodoBaseRequest request)
+        public async Task<IActionResult> PutTodoItem([FromRoute]Guid id, [FromBody]TodoRequest request)
         {
             await _todoService.Update(new TodoItem { 
                 Id = id, 
